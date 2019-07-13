@@ -12,8 +12,35 @@ class CrearCliente extends Component {
             email: '',
             tipo: ''
         },
-        error: false   
+        error: false,
+        emails: []
     }
+
+    nuevoCampo = () => {
+        this.setState({
+            emails: this.state.emails.concat([{email: ''}])
+        })
+    }
+
+    leerCampo = (i) => (e) => {
+        const nuevoEmail = this.state.emails.map((email, index) => {
+            if(i !== index) return email;
+            return {
+                email: e.target.value
+            }
+        })
+        this.setState({
+            emails: nuevoEmail
+        })
+    }
+
+    quitarCampo = (i) => () => {
+        this.state.emails.splice(i, 1)
+        this.setState({
+            emails: this.state.emails
+        })
+    }
+
     render() {
         const { error } = this.state;
         let respuesta = (error) ? <p className="alert alert-danger p-3 text-center"> Todos los campos son obligatorios</p> : '';
@@ -29,9 +56,11 @@ class CrearCliente extends Component {
                             <form className="col-md-8 m-3" 
                                 onSubmit={e => {
                                     e.preventDefault();
-                                    const { nombre, apellido, email, empresa, tipo, edad } = this.state.cliente;
+                                    const { nombre, apellido, empresa, tipo, edad } = this.state.cliente;
+                                    
+                                    const { emails } = this.state;
 
-                                    if (nombre === '' || apellido === '' || empresa === '' || email === '' || tipo === '' || edad === '') {
+                                    if (nombre === '' || apellido === '' || empresa === '' || tipo === '' || edad === '') {
                                         this.setState({
                                             error: true
                                         })
@@ -45,7 +74,7 @@ class CrearCliente extends Component {
                                         nombre,
                                         apellido,
                                         empresa,
-                                        email,
+                                        emails,
                                         edad: Number(edad),
                                         tipo
                                     };
@@ -92,7 +121,7 @@ class CrearCliente extends Component {
                                     </div>
                                 </div>
                                 <div className="form-row">
-                                    <div className="form-group col-md-6">
+                                    <div className="form-group col-md-12">
                                         <label>Empresa</label>
                                         <input 
                                             type="text" 
@@ -108,21 +137,36 @@ class CrearCliente extends Component {
                                             }}
                                         />
                                     </div>
-                                    <div className="form-group col-md-6">
-                                        <label>Email</label>
-                                        <input 
-                                            type="email" 
-                                            className="form-control" 
-                                            placeholder="Email"
-                                            onChange={ e => {
-                                                this.setState({
-                                                    cliente: {
-                                                        ...this.state.cliente,
-                                                        email: e.target.value
-                                                    }
-                                                })
-                                            }}
-                                        />
+                                    {this.state.emails.map((input, index) => (
+                                        <div key={index} className="form-group col-md-12">
+                                            <label>Correo {index + 1} :</label>
+                                            <div className="input-group">
+                                                <input 
+                                                    type="email"
+                                                    placeholder="Email"
+                                                    className="form-control"
+                                                    onChange={this.leerCampo(index)}
+                                                />
+                                                <div className="input-group-append">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-danger"
+                                                        onClick={this.quitarCampo(index)}
+                                                    >
+                                                    &times; Eliminar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div className="form-group d-flex justify-content-center col-md-12">
+                                        <button
+                                            type="button"
+                                            className="btn btn-warning"
+                                            onClick={this.nuevoCampo}
+                                        > + Agregar Email
+                                        </button>
+                                        
                                     </div>
                                 </div>
                                 <div className="form-row">
