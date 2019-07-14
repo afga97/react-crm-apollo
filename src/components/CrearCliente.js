@@ -51,6 +51,10 @@ class CrearCliente extends Component {
                 <div className="row justify-content-center">
                     <Mutation 
                         mutation={NUEVO_CLIENTE}
+                        onCompleted={ () => this.props.history.push('/')}
+                        onError={ () => {
+                            alert('Ocurrio un error al guardar')
+                        }}
                     >
                         { crearCliente => (
                             <form className="col-md-8 m-3" 

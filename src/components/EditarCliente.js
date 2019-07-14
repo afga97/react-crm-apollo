@@ -15,12 +15,13 @@ class EditarCliente extends Component {
                         query={CLIENTE_QUERY}
                         variables={{ id }}
                     >
-                        {({ loading, error, data }) => {
+                        {({ loading, error, data, refetch }) => {
                             if (loading) return "Cargando...";
                             if (error) return `Error! ${error.message}`                            
                             return (
                                 <FormularioEditarCliente 
                                     cliente={data.getCliente}
+                                    refetch={refetch}
                                 />
                             )
                         }}
