@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { Query, Mutation } from 'react-apollo';
 
 // Components
-import Paginator from './Paginator';
+import Paginator from '../Paginator';
 
 
-import { CLIENTS_QUERY } from '../queries';
-import { ELIMINAR_CLIENTE } from '../mutations';
+import { CLIENTS_QUERY } from '../../queries';
+import { ELIMINAR_CLIENTE } from '../../mutations';
 
 class Clientes extends Component {
 
@@ -72,7 +72,6 @@ class Clientes extends Component {
                                                     mutation={ELIMINAR_CLIENTE}
                                                 >
                                                     {eliminarCliente => (
-        
                                                         <button
                                                             type="button"
                                                             className="btn btn-danger d-block d-md-inline-block"

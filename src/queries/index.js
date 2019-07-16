@@ -12,7 +12,7 @@ export const CLIENTS_QUERY = gql`
     }`;
 
 export const CLIENTE_QUERY = gql`
-    query ConsultarCliente($id: ID){
+    query ConsultarCliente($id: ID!){
         getCliente(id: $id) {
             id
             nombre
@@ -25,3 +25,25 @@ export const CLIENTE_QUERY = gql`
             tipo
         }
 }`;
+
+export const PRODUCTOS_QUERY = gql`
+    query getProductos($limite: Int, $offset: Int){
+        getProductos(limite: $limite, offset: $offset){
+            id
+            nombre
+            precio
+            stock
+        }
+    }
+`;
+
+export const PRODUCTO_QUERY = gql`
+    query ConsultarProducto($id: ID!){
+        getProducto(id: $id){
+            id
+            nombre
+            precio
+            stock
+        }
+    }
+`;
