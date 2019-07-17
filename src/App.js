@@ -8,9 +8,12 @@ import Header from './components/layout/Header';
 import Clients from './components/clientes/Clientes';
 import CrearCliente from './components/clientes/CrearCliente';
 import EditarCliente from './components/clientes/EditarCliente';
+import CrearProducto from './components/productos/NuevoProducto';
+import Productos from './components/productos/Productos';
+
 
 const client = new ApolloClient({
-  uri: "http://192.168.1.2:4000/graphql",
+  uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache({
     addTypename: false
   }),
@@ -31,6 +34,8 @@ function App() {
               <Route exact path="/" component={Clients} />
               <Route exact path="/cliente/nuevo" component={CrearCliente} />
               <Route exact path="/cliente/editar/:id" component={EditarCliente} />
+              <Route exact path="/productos/nuevo" component={CrearProducto} />
+              <Route exact path="/productos" component={Productos} />
             </Switch>
           </div>
         </Fragment>
