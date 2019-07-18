@@ -52,11 +52,11 @@ export class CrearProducto extends Component {
         }
         return (
             <Fragment>
-                <h1 className="text-center mb-5"></h1>
+                <h1 className="text-center mb-5">Crear producto</h1>
                 <div className="row justify-content-center">
                     <Mutation
                         mutation={NUEVO_PRODUCTO}
-                        variables={ { input }}
+                        variables={ { input } }
                         onCompleted={ () => {
                             console.log('Creado correctamente')
                         }}
