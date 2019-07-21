@@ -38,7 +38,6 @@ export class CrearProducto extends Component {
         nuevoProducto().then(data => {
             this.limpiarState()
             this.props.history.push('/productos')
-            console.log(data);
         })
     }
 

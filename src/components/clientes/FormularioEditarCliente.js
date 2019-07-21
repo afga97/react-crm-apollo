@@ -39,7 +39,7 @@ class FormularioEditarCliente extends Component {
             <Mutation 
             mutation={ACTUALIZAR_CLIENTE}
             onCompleted={ () => this.props.refetch().then( () => {
-                this.props.history.push('/');
+                this.props.history.push('/clientes');
             })} 
             onError={ () => {
                     alert('Ocurrio un error al actualizar')

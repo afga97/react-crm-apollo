@@ -4,6 +4,7 @@ import { Query, Mutation } from 'react-apollo';
 
 // Components
 import Paginator from '../Paginator';
+import Alerta from '../alertas/Alert';
 
 
 import { CLIENTS_QUERY } from '../../queries';
@@ -12,6 +13,11 @@ import { ELIMINAR_CLIENTE } from '../../mutations';
 class Clientes extends Component {
 
     state = {
+        alerta: {
+            mostrar: false,
+            mensaje: '',
+            type: ''
+        },
         paginator: {
             offset: 0,
             actual: 1
@@ -38,10 +44,12 @@ class Clientes extends Component {
     }
 
     render() {
+        const { alerta: {mostrar, mensaje, type} }  = this.state;
+        let alerta = (mostrar) ? <Alerta mensaje={mensaje} type={type} /> : '';
         return (
             <Query
                 query={CLIENTS_QUERY}
-                pollInterval={1000}
+                fetchPolicy="network-only"
                 variables={
                     {
                         limite: this.state.limite,
@@ -55,6 +63,7 @@ class Clientes extends Component {
                     console.log(data);
                     return (
                         <Fragment>
+                            {alerta}
                             <h2 className="text-center mt-4">Listado de clientes</h2>
                             <ul className="list-group mt-4">
                                 {data.getClientes.map(item => (
@@ -65,11 +74,30 @@ class Clientes extends Component {
                                             </div>
                                             <div className="col-md-4 d-flex justify-content-end">
                                                 <Link className="btn btn-success d-block d-md-inline-block mr-2"
-                                                    to={`/cliente/editar/${item.id}`}>
+                                                    to={`/clientes/editar/${item.id}`}>
                                                     Editar Cliente
                                             </Link>
                                                 <Mutation
                                                     mutation={ELIMINAR_CLIENTE}
+                                                    onCompleted={ (data) => {
+                                                        this.setState({
+                                                            alerta:{
+                                                                mostrar: true,
+                                                                mensaje: data.eliminarCliente,
+                                                                type: 'success'
+                                                            }
+                                                        }, () => {
+                                                            setTimeout(() => {
+                                                                this.setState({
+                                                                    alerta: {
+                                                                        mostrar: false,
+                                                                        mensaje: '',
+                                                                        type: ''
+                                                                    }
+                                                                })
+                                                            }, 5000);
+                                                        })
+                                                    }}
                                                 >
                                                     {eliminarCliente => (
                                                         <button
@@ -95,7 +123,7 @@ class Clientes extends Component {
                             </ul>
                             <Paginator 
                                 actual={this.state.paginator.actual}
-                                totalClientes={data.totalClientes}
+                                total={data.totalClientes}
                                 limite={this.state.limite}
                                 paginaAnterior={this.paginaAnterior}
                                 paginaSiguiente={this.paginaSiguiente}

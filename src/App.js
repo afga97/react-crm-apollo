@@ -32,12 +32,13 @@ function App() {
           <Header />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Clients} />
-              <Route exact path="/cliente/nuevo" component={CrearCliente} />
-              <Route exact path="/cliente/editar/:id" component={EditarCliente} />
-              <Route exact path="/productos/nuevo" component={CrearProducto} />
+              <Route exact path="/clientes" component={Clients} />
+              <Route exact path="/clientes/editar/:id" component={EditarCliente} />
+              <Route exact path="/clientes/nuevo" component={CrearCliente} />
+
               <Route exact path="/productos" component={Productos} />
               <Route exact path="/productos/editar/:id" component={ProductosEditar} />
+              <Route exact path="/productos/nuevo" component={CrearProducto} />
 
             </Switch>
           </div>
