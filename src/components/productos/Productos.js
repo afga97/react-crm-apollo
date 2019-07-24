@@ -41,6 +41,26 @@ export class Productos extends Component {
             }
         })
     }
+    
+    eliminarProducto = (data) => {
+        this.setState({
+            alerta:{
+                mostrar: true,
+                mensaje: data.eliminarProducto,
+                type: 'success'
+            }
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    alerta: {
+                        mostrar: false,
+                        mensaje: '',
+                        type: ''
+                    }
+                })
+            }, 5000);
+        })
+    }
 
     render() {
         const { alerta: {mostrar, mensaje, type} }  = this.state;
@@ -91,27 +111,9 @@ export class Productos extends Component {
                                                 </Link>
                                             </td>
                                             <td>
-                                                <Mutation
+                                                <Mutation   
                                                     mutation={ ELIMINAR_PRODUCTO }
-                                                    onCompleted={ (data) => {
-                                                        this.setState({
-                                                            alerta:{
-                                                                mostrar: true,
-                                                                mensaje: data.eliminarProducto,
-                                                                type: 'success'
-                                                            }
-                                                        }, () => {
-                                                            setTimeout(() => {
-                                                                this.setState({
-                                                                    alerta: {
-                                                                        mostrar: false,
-                                                                        mensaje: '',
-                                                                        type: ''
-                                                                    }
-                                                                })
-                                                            }, 5000);
-                                                        })
-                                                    }}
+                                                    onCompleted={ (data) => this.eliminarProducto(data)}
                                                 >
                                                 { eliminarProducto => (
                                                     <button

@@ -43,6 +43,26 @@ class Clientes extends Component {
         })
     }
 
+    eliminarCliente = (data) => {
+        this.setState({
+            alerta:{
+                mostrar: true,
+                mensaje: data.eliminarCliente,
+                type: 'success'
+            }
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    alerta: {
+                        mostrar: false,
+                        mensaje: '',
+                        type: ''
+                    }
+                })
+            }, 5000);
+        })
+    }
+
     render() {
         const { alerta: {mostrar, mensaje, type} }  = this.state;
         let alerta = (mostrar) ? <Alerta mensaje={mensaje} type={type} /> : '';
@@ -69,35 +89,22 @@ class Clientes extends Component {
                                 {data.getClientes.map(item => (
                                     <li key={item.id} className="list-group-item">
                                         <div className="row justify-content-between aling-items-center">
-                                            <div className="col-md-8 d-flex justify-content-between aling-items-cente">
+                                            <div className="col-md-6 d-flex justify-content-between aling-items-cente">
                                                 {item.nombre} {item.apellido} - {item.empresa}
                                             </div>
-                                            <div className="col-md-4 d-flex justify-content-end">
+                                            <div className="col-md-6 d-flex justify-content-end">
+                                                <Link className="btn btn-primary d-block d-md-inline-block mr-2"
+                                                    to={`/pedidos/nuevo/${item.id}`}
+                                                >
+                                                    &#43; Nuevo Pedido
+                                                </Link>
                                                 <Link className="btn btn-success d-block d-md-inline-block mr-2"
                                                     to={`/clientes/editar/${item.id}`}>
                                                     Editar Cliente
-                                            </Link>
+                                                </Link>
                                                 <Mutation
                                                     mutation={ELIMINAR_CLIENTE}
-                                                    onCompleted={ (data) => {
-                                                        this.setState({
-                                                            alerta:{
-                                                                mostrar: true,
-                                                                mensaje: data.eliminarCliente,
-                                                                type: 'success'
-                                                            }
-                                                        }, () => {
-                                                            setTimeout(() => {
-                                                                this.setState({
-                                                                    alerta: {
-                                                                        mostrar: false,
-                                                                        mensaje: '',
-                                                                        type: ''
-                                                                    }
-                                                                })
-                                                            }, 5000);
-                                                        })
-                                                    }}
+                                                    onCompleted={ (data) => {this.eliminarCliente(data)}}
                                                 >
                                                     {eliminarCliente => (
                                                         <button

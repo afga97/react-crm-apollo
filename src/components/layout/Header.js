@@ -24,7 +24,7 @@ const Header = () => (
                             </Link>
                         </div>
                     </li>
-                    <li className="nat-item dropdown">
+                    <li className="nat-item dropdown mr-md-2 mb-2 mb-md-0">
                         <button
                             className="nav-link dropdown-toggle btn btn-block btn-success"
                             data-toggle="dropdown"
