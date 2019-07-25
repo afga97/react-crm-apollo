@@ -36,6 +36,7 @@ function App() {
           <Header />
           <div className="container">
             <Switch>
+              <Route exact path="/" component={Clients} />
               <Route exact path="/clientes" component={Clients} />
               <Route exact path="/clientes/editar/:id" component={EditarCliente} />
               <Route exact path="/clientes/nuevo" component={CrearCliente} />
