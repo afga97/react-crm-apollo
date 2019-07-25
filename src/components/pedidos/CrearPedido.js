@@ -3,10 +3,8 @@ import { Query } from 'react-apollo';
 
 import { PRODUCTOS_QUERY } from '../../queries';
 
-import ContenidoProducto from './ContenidoProducto';
+import ContenidoPedido from './ContenidoPedido';
 import DatosCliente from './DatosCliente';
-
-
 
 export class CrearPedido extends Component {
     render() {
@@ -27,9 +25,8 @@ export class CrearPedido extends Component {
                                 if (loading) return "Cargando...";
                                 if (error) return `Error ${error.message}`
 
-                                console.log(data)
                                 return (
-                                    <ContenidoProducto 
+                                    <ContenidoPedido 
                                         productos={data.getProductos}
                                         idcliente={id}
                                     />
