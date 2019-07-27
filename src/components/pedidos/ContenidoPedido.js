@@ -3,6 +3,8 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 
 import Resumen from './Resumen';
+import GenerarPedido from './GenerarPedido';
+import Alert from '../alertas/Alert';
 
 export class ContenidoPedido extends Component {
     state = {
@@ -56,6 +58,7 @@ export class ContenidoPedido extends Component {
     }
 
     render() {
+        const alerta = this.state.total < 0 ? <Alert mensaje="Las cantidades no pueden ser negativas" type="error" /> : '';
         return (
             <Fragment>
                 <h2 className="text-center mb-5">Seleccionar Articulos</h2>
@@ -68,6 +71,7 @@ export class ContenidoPedido extends Component {
                     onChange={ this.seleccionarProducto }
                     value={this.state.productos}
                 />
+                {alerta}
                 <Resumen 
                     productos={this.state.productos}
                     actualizarCantidad={this.actualizarCantidad}
@@ -79,6 +83,11 @@ export class ContenidoPedido extends Component {
                             $ {this.state.total}
                     </span>
                 </p>
+                <GenerarPedido 
+                    productos={this.state.productos}
+                    total={this.state.total}
+                    idCliente={this.props.idCliente}
+                />
             </Fragment>
         )
     }

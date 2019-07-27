@@ -27,8 +27,8 @@ export const CLIENTE_QUERY = gql`
 }`;
 
 export const PRODUCTOS_QUERY = gql`
-    query getProductos($limite: Int, $offset: Int){
-        getProductos(limite: $limite, offset: $offset){
+    query getProductos($limite: Int, $offset: Int, $stock:Boolean){
+        getProductos(limite: $limite, offset: $offset, stock:$stock){
             id
             nombre
             precio
@@ -48,3 +48,15 @@ export const PRODUCTO_QUERY = gql`
         }
     }
 `;
+
+export const PEDIDOS_QUERY = gql`
+    query {
+        getPedidos{
+            id
+            pedido{
+                id
+                cantidad
+            }
+            estado
+        }
+    }`;

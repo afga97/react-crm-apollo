@@ -19,6 +19,7 @@ export class CrearPedido extends Component {
                     <div className="col-md-9">
                         <Query
                             query={ PRODUCTOS_QUERY }
+                            variables={{ stock: true }}
                             fetchPolicy="network-only"
                         >
                             { ({loading, error, data}) => {
@@ -28,7 +29,7 @@ export class CrearPedido extends Component {
                                 return (
                                     <ContenidoPedido 
                                         productos={data.getProductos}
-                                        idcliente={id}
+                                        idCliente={id}
                                     />
                                 )
                             } }

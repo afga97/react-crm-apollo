@@ -80,7 +80,7 @@ class Clientes extends Component {
                 {({ loading, error, data, startPolling, stopPolling }) => {
                     if (loading) return <p>Loading...</p>;
                     if (error) return <p>Error :(</p>;
-                    console.log(data);
+
                     return (
                         <Fragment>
                             {alerta}
@@ -93,10 +93,15 @@ class Clientes extends Component {
                                                 {item.nombre} {item.apellido} - {item.empresa}
                                             </div>
                                             <div className="col-md-6 d-flex justify-content-end">
-                                                <Link className="btn btn-primary d-block d-md-inline-block mr-2"
+                                                <Link className="btn btn-warning d-block d-md-inline-block mr-2"
                                                     to={`/pedidos/nuevo/${item.id}`}
                                                 >
                                                     &#43; Nuevo Pedido
+                                                </Link>
+                                                <Link className="btn btn-primary d-block d-md-inline-block mr-2"
+                                                    to={`/pedidos/${item.id}`}
+                                                >
+                                                    Ver Pedidos
                                                 </Link>
                                                 <Link className="btn btn-success d-block d-md-inline-block mr-2"
                                                     to={`/clientes/editar/${item.id}`}>

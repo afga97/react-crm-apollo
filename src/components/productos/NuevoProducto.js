@@ -56,9 +56,6 @@ export class CrearProducto extends Component {
                     <Mutation
                         mutation={NUEVO_PRODUCTO}
                         variables={ { input } }
-                        onCompleted={ () => {
-                            console.log('Creado correctamente')
-                        }}
                     > 
                     {(nuevoProducto, {loading, error, data})  => {
                         return (
