@@ -8,11 +8,12 @@ const PedidosCliente = (props) => {
     const cliente = props.match.params.id;
     return ( 
         <Fragment>
-            <h1 className="text-center mb-5">Peidods del cliente</h1>
+            <h1 className="text-center mb-5">Pedidos del cliente</h1>
             <div className="row">
                 <Query
                     query={OBTENER_PEDIDOS}
                     variables={{ cliente }}
+                    fetchPolicy="network-only"
                 >
                 {({loading, error, data}) => {
                     if (loading) return 'Cargando...';

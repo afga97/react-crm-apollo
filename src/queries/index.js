@@ -66,3 +66,15 @@ export const OBTENER_PEDIDOS = gql`
             estado
         }
     }`;
+
+export const TOP_CLIENTES = gql`
+    query TopClientes{
+        topClientes{
+            total
+            cliente {
+                nombre
+                apellido
+                tipo
+            }
+        }
+    }`;

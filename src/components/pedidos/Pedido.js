@@ -1,31 +1,34 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
-import { PRODUCTO_QUERY } from '../../queries';
+import { PRODUCTO_QUERY, OBTENER_PEDIDOS } from '../../queries';
 import ResumenProducto from './ResumenProducto';
 import { ACTUALIZAR_ESTADO } from '../../mutations';
 
 const Pedido = (props) => {
     const pedido = props.pedido;
-    const { id } = pedido;
+    const { id, estado } = pedido;
     const fecha = new Date(Number(pedido.fecha))
 
+    let clase;
+    if (estado === 'PENDIENTE') {
+        clase = 'border-light';
+    }else if (estado === 'CANCELADO') {
+        clase = 'border-danger'
+    } else {
+        clase = 'border-success'
+    }
+
+    const divStyle = {
+        borderWidth: '4px'
+    }
     return (
         <div className="col-md-4">
-            <div className="card mb-3" >
+            <div className={`card mb-3 ${clase}`} style={divStyle}>
                 <div className="card-body">
                     <p className="card-text font-weight-bold ">Estado:
                         <Mutation
                             mutation={ACTUALIZAR_ESTADO}   
-                            key={id}
-                            update={(proxy, { data: { createTodo } }) => {
-                                try {        
-                                    const data = proxy.readQuery({ query });        
-                                    data.todos.push(createTodo);
-                                    proxy.writeQuery({ query, data });      
-                                }catch(error) {
-                                    console.error(error);      
-                                }}
-                            }                     
+                            key={id}                
                         >
                         { actualizarEstado => (
                             <select 
@@ -40,8 +43,16 @@ const Pedido = (props) => {
                                         cliente: pedido.cliente.id,
                                         estado: e.target.value
                                     }
+
+                                    const cliente_id = pedido.cliente.id;
                                     actualizarEstado({
-                                        variables: { input }
+                                        variables: { input },
+                                        refetchQueries: [
+                                            { 
+                                                query: OBTENER_PEDIDOS,
+                                                variables: { cliente: cliente_id }
+                                            }
+                                        ]
                                     })
                                 }}
                             >

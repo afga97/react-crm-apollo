@@ -17,6 +17,8 @@ import ProductosEditar from './components/productos/EditarProducto';
 import CrearPedido from './components/pedidos/CrearPedido';
 import PedidosCliente from './components/pedidos/PedidosCliente';
 
+import Panel from './components/panel/Panel';
+
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -48,6 +50,8 @@ function App() {
 
               <Route exact path="/pedidos/nuevo/:id" component={CrearPedido} />
               <Route exact path="/pedidos/:id" component={PedidosCliente} />
+
+              <Route exact path="/panel" component={Panel} />
 
             </Switch>
           </div>
